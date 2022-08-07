@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\AddressRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
-#[ApiResource]
 class Address
 {
     #[ORM\Id]
@@ -18,21 +17,38 @@ class Address
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-Z_.-]$/",
+        message: "Le nom du destinataire doit être uniquement composé de caractères alphabétiques"
+    )]
     private ?string $fullName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(
+        message: "Veuillez indiquer votre rue"
+    )]
     private ?string $line1 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $line2 = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(
+        message: "Veuillez indiquer votre ville"
+    )]
     private ?string $city = null;
 
     #[ORM\Column(length: 5)]
+    #[Assert\NotBlank(
+        message: "Veuillez indiquer votre code postal"
+    )]
     private ?string $postcode = null;
 
     #[ORM\Column(length: 10, nullable: true)]
+    #[Assert\Regex(
+        pattern: "/^\[0][1-9][0-9]{8}$/",
+        message: "Le numéro de téléphone ne peut contenir que 10 chiffres et doit commencer par un 0 suivi d'un numéro entre 1 et 9"
+    )]
     private ?string $phoneNumber = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'address')]

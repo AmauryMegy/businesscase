@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,7 +10,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-#[ApiResource]
 class Product
 {
     #[ORM\Id]
@@ -19,12 +18,37 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(
+        message: "Le nom du produit est obligatoire"
+    )]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: "Le nom du produit doit faire au moins {{ limit }} caractères",
+        maxMessage: "Le nom du produit doit faire au maximum {{ limit }} caractères"
+    )]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
+    #[Assert\NotNull(
+        message: "Le prix du produit est obligatoire"
+    )]
+    #[Assert\GreaterThan(
+        value: 0,
+        message: "Le prix du produit doit être supérieur à 0"
+    )]
     private ?string $price = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(
+        message: "La description du produit est obligatoire"
+    )]
+    #[Assert\Length(
+        min: 3,
+        max: 255,
+        minMessage: "La description du produit doit faire au moins {{ limit }} caractères",
+        maxMessage: "La description du produit doit faire au maximum {{ limit }} caractères"
+    )]
     private ?string $description = null;
 
     #[ORM\Column]

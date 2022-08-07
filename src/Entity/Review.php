@@ -2,13 +2,12 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ReviewRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
-#[ApiResource]
 class Review
 {
     #[ORM\Id]
@@ -17,9 +16,24 @@ class Review
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(
+        message:"Veuillez entrer une note"
+    )]
+    #[Assert\Range(
+        min: 0,
+        max: 5,
+        minMessage: "Veuillez entrer une note entre 0 et 5",
+        maxMessage: "Veuillez entrer une note entre 0 et 5"
+    )]
     private ?int $notation = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(
+        min: 0,
+        max: 500,
+        minMessage: "Veuillez entrer un commentaire de 0 à 500 caractères",
+        maxMessage: "Veuillez entrer un commentaire de 0 à 500 caractères"
+    )]
     private ?string $commentary = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

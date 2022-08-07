@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ApiResource]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -21,6 +21,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(
+        message: "L'email est obligatoire"
+    )]
+    #[Assert\Email(
+        message: "L'email n'est pas valide"
+    )]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -30,18 +36,74 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank(
+        message: "Le mot de passe est obligatoire"
+    )]
+    #[Assert\Length(
+        min: 5,
+        max: 20,
+        minMessage: "Le mot de passe doit faire au moins {{ limit }} caractères",
+        maxMessage: "Le mot de passe doit faire au maximum {{ limit }} caractères"
+    )]
+    #[Assert\Regex(
+        pattern: "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,20}$/",
+        message: "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial"
+    )]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(
+        message: "Le prénom est obligatoire"
+    )]
+    #[Assert\Length(
+        min: 2,
+        max: 30,
+        minMessage: "Le prénom doit faire au moins {{ limit }} caractères",
+        maxMessage: "Le prénom doit faire au maximum {{ limit }} caractères"
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-ZÀ-ÿ' -]+$/",
+        message: "Le prénom doit contenir que des lettres"
+    )]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(
+        message: "Le nom est obligatoire"
+    )]
+    #[Assert\Length(
+        min: 2,
+        max: 30,
+        minMessage: "Le nom doit faire au moins {{ limit }} caractères",
+        maxMessage: "Le nom doit faire au maximum {{ limit }} caractères"
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-ZÀ-ÿ' -]+$/",
+        message: "Le nom doit contenir que des lettres"
+    )]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 30,
+        minMessage: "Le nom doit faire au moins {{ limit }} caractères",
+        maxMessage: "Le nom doit faire au maximum {{ limit }} caractères"
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-ZÀ-ÿ0-9' -]+$/",
+        message: "Le nom doit contenir que des caractères alphanumériques"
+    )]
     private ?string $username = null;
 
     #[ORM\Column(length: 10)]
+    #[Assert\NotBlank(
+        message: "Le numéro de téléphone est obligatoire"
+    )]
+    #[Assert\Regex(
+        pattern: "/^\[0][1-9][0-9]{8}$/",
+        message: "Le numéro de téléphone ne peut contenir que 10 chiffres et doit commencer par un 0 suivi d'un numéro entre 1 et 9"
+    )]
     private ?string $phoneNumber = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

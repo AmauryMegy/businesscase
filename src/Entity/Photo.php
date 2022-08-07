@@ -2,12 +2,11 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\PhotoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PhotoRepository::class)]
-#[ApiResource]
 class Photo
 {
     #[ORM\Id]
@@ -16,9 +15,27 @@ class Photo
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(
+        message: "Le nom de la photo est obligatoire"
+    )]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: "Le nom de la photo doit faire au moins {{ limit }} caractères",
+        maxMessage: "Le nom de la photo doit faire au maximum {{ limit }} caractères"
+    )]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(
+        message: "Le texte alternatif de la photo est obligatoire"
+    )]
+    #[Assert\Length(
+        min: 5,
+        max: 255,
+        minMessage: "Le texte alternatif de la photo doit faire au moins {{ limit }} caractères",
+        maxMessage: "Le texte alternatif de la photo doit faire au maximum {{ limit }} caractères"
+    )]
     private ?string $alternativeText = null;
 
     #[ORM\ManyToOne(inversedBy: 'photos')]
