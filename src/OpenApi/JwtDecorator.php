@@ -1,4 +1,6 @@
 <?php
+// api/src/OpenApi/JwtDecorator.php
+
 declare(strict_types=1);
 
 namespace App\OpenApi;
@@ -6,6 +8,7 @@ namespace App\OpenApi;
 use ApiPlatform\Core\OpenApi\Factory\OpenApiFactoryInterface;
 use ApiPlatform\Core\OpenApi\OpenApi;
 use ApiPlatform\Core\OpenApi\Model;
+use ArrayObject;
 
 final class JwtDecorator implements OpenApiFactoryInterface
 {

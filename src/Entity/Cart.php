@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CartRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,6 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CartRepository::class)]
+#[ApiResource]
 class Cart
 {
     #[ORM\Id]
@@ -23,7 +25,7 @@ class Cart
     private ?\DateTimeInterface $validatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'carts')]
-    private ?paymentMethod $paymentMethod = null;
+    private ?PaymentMethod $paymentMethod = null;
 
     #[ORM\ManyToOne(inversedBy: 'carts')]
     #[ORM\JoinColumn(nullable: false)]
