@@ -1,0 +1,13 @@
+App\Entity\Status:
+  status1:
+    name: 'validated'
+  status2:
+    name: 'expired'
+  status3:
+    name: 'waiting'
+  status4:
+    name: 'sent'
+  status5:
+    name: 'refund'
+  status6:
+    name: 'preparing'

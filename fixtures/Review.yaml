@@ -1,0 +1,7 @@
+App\Entity\Review:
+  review{0..150}:
+    notation: '<randomNumber(1,5)>'
+    commentary: '<sentence(20,50)>'
+    createdAt: '<dateTimeBetween("-500 days", "now")>'
+    user: '@user*'
+    product: '@Product*'

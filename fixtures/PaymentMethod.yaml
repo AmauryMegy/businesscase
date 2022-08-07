@@ -1,0 +1,7 @@
+App\Entity\PaymentMethod:
+  paymentMethod1:
+    name: 'Carte bancaire'
+  paymentMethod2:
+    name: 'Paypal'
+  paymentMethod3:
+    name: 'Virement bancaire'

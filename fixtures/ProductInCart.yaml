@@ -1,0 +1,6 @@
+App\Entity\ProductInCart:
+  productInCart{0..150}:
+    quantity: '<randomNumber(1,3)>'
+    price: '<randomNumber(1,100)>'
+    cart: '@cart*'
+    product: '@Product*'

@@ -1,0 +1,5 @@
+App\Entity\Address:
+  address{0..50}:
+    line1: '<streetName()>'
+    city: '<city()>'
+    postcode: '00000'

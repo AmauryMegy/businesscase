@@ -1,0 +1,28 @@
+parameters:
+  password: '$2y$13$vldgApLZb5YMp51QTlLTyOSQf.TTiDYfd55FuaF6ZV2TAAdgE3enG' # 1234
+  passwordAdmin: '$2y$13$jgVX14wC2.KPcPqxQFgboOtkufs4MH4gf3G8RSWNkajHMKq9rlUvC' # Issou2021
+
+App\Entity\User:
+  user (template):
+    email (unique): '<email()>'
+    password: '<{password}>'
+    firstName: '<firstName()>'
+    lastName: '<lastName()>'
+    phoneNumber: '0123456789'
+    birthAt: '<dateTimeBetween("-29200 days", "-6570 days")>'
+    registeredAt: '<dateTimeBetween("-1500 days", "now")>'
+#    address: '@address*'
+
+  user_admin (extends user):
+    email: 'admin@test.com'
+    username: 'LaTerreEstPlate'
+    password: '<{passwordAdmin}>'
+    roles: ['ROLE_ADMIN']
+
+  user_stats (extends user):
+    email: 'stats@test.com'
+    username: 'LaFaceCacheDeLaLune'
+    password: '<{passwordAdmin}>'
+    roles: ['ROLE_STATS']
+
+  user{0..50} (extends user): ~

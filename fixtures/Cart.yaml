@@ -1,0 +1,6 @@
+App\Entity\Cart:
+  cart{0..300}:
+    createdAt: '<dateTimeBetween("-1500 days", "now")>'
+    validatedAt: '30%? <dateTimeBetween("now", "+1500 days")>'
+    status: '@status*'
+    user: '@user*'
