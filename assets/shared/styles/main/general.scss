@@ -1,0 +1,54 @@
+
+body {
+  margin: 0;
+  background-color: $background-color;
+  color: $main-color;
+}
+
+.btn-primary {
+  border-radius: 1em;
+  border: solid 0.2rem darken($background-color, 10%);
+  background-color: darken($background-color, 5%);
+
+  &:hover, &:focus, &:active {
+    background-color: $card-game-price-color;
+    border: solid 0.2rem darken($card-game-price-color, 25%);
+    box-shadow: 0 0 0 0.25rem lighten($card-game-price-color, 30%);
+  }
+}
+
+.sortable,
+.asc,
+.desc {
+  text-decoration: none;
+  color: #dfdfdf;
+
+  &:hover {
+    text-decoration: none;
+    color: $card-game-price-color;
+  }
+
+  &:after {
+    content: '⬍';
+    padding-left: 0.4rem;
+    font-weight: 900;
+  }
+
+  &.asc {
+    &:after {
+      padding-left: 0.4rem;
+      content: '▴';
+      position: relative;
+      top: -5px;
+    }
+  }
+
+  &.desc {
+    &:after {
+      padding-left: 0.4rem;
+      content: '▾';
+      position: relative;
+      top: 5px;
+    }
+  }
+}
