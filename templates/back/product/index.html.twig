@@ -1,11 +1,13 @@
-<!DOCTYPE html>
+{% extends 'back/base.html.twig' %}
 
-<title>Product index</title>
+{% block title %}
+    Les produits
+{% endblock %}
 
 {% block body %}
-    <h1>Product index</h1>
+    <h1>Les produits</h1>
 
-    <table class="table">
+    <table class="table table-hover table-striped mt-3">
         <thead>
             <tr>
                 <th>Id</th>
@@ -21,7 +23,7 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
-                <td>{{ product.price }}</td>
+                <td>{{ product.price }}€</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.isOnline ? 'Yes' : 'No' }}</td>
                 <td>

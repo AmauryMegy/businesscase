@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -61,6 +62,15 @@ class ProductRepository extends ServiceEntityRepository
 //            ->setParameter('val', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()
+//        ;
+//    }
+//    public function getQbAll(): QueryBuilder
+//    {
+//        $qb = parent::getQbAll();
+//        return $qb->select('product', 'brand', 'category')
+//            ->leftJoin('product.brand', 'brand')
+//            ->leftJoin('product.category', 'category')
+//            ->orderBy('product.createdAt', 'DESC')
 //        ;
 //    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Back;
 
 use App\Entity\PaymentMethod;
 use App\Form\PaymentMethodType;
@@ -16,7 +16,7 @@ class PaymentMethodController extends AbstractController
     #[Route('/', name: 'app_payment_method_index', methods: ['GET'])]
     public function index(PaymentMethodRepository $paymentMethodRepository): Response
     {
-        return $this->render('payment_method/index.html.twig', [
+        return $this->render('back/payment_method/index.html.twig', [
             'payment_methods' => $paymentMethodRepository->findAll(),
         ]);
     }
@@ -34,7 +34,7 @@ class PaymentMethodController extends AbstractController
             return $this->redirectToRoute('app_payment_method_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('payment_method/new.html.twig', [
+        return $this->renderForm('back/payment_method/new.html.twig', [
             'payment_method' => $paymentMethod,
             'form' => $form,
         ]);
@@ -43,7 +43,7 @@ class PaymentMethodController extends AbstractController
     #[Route('/{id}', name: 'app_payment_method_show', methods: ['GET'])]
     public function show(PaymentMethod $paymentMethod): Response
     {
-        return $this->render('payment_method/show.html.twig', [
+        return $this->render('back/payment_method/show.html.twig', [
             'payment_method' => $paymentMethod,
         ]);
     }
@@ -60,7 +60,7 @@ class PaymentMethodController extends AbstractController
             return $this->redirectToRoute('app_payment_method_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('payment_method/edit.html.twig', [
+        return $this->renderForm('back/payment_method/edit.html.twig', [
             'payment_method' => $paymentMethod,
             'form' => $form,
         ]);

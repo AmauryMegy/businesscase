@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Back;
 
 use App\Entity\Brand;
 use App\Form\BrandType;
@@ -16,7 +16,7 @@ class BrandController extends AbstractController
     #[Route('/', name: 'app_brand_index', methods: ['GET'])]
     public function index(BrandRepository $brandRepository): Response
     {
-        return $this->render('brand/index.html.twig', [
+        return $this->render('back/brand/index.html.twig', [
             'brands' => $brandRepository->findAll(),
         ]);
     }
@@ -34,7 +34,7 @@ class BrandController extends AbstractController
             return $this->redirectToRoute('app_brand_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('brand/new.html.twig', [
+        return $this->renderForm('back/brand/new.html.twig', [
             'brand' => $brand,
             'form' => $form,
         ]);
@@ -43,7 +43,7 @@ class BrandController extends AbstractController
     #[Route('/{id}', name: 'app_brand_show', methods: ['GET'])]
     public function show(Brand $brand): Response
     {
-        return $this->render('brand/show.html.twig', [
+        return $this->render('back/brand/show.html.twig', [
             'brand' => $brand,
         ]);
     }
@@ -60,7 +60,7 @@ class BrandController extends AbstractController
             return $this->redirectToRoute('app_brand_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('brand/edit.html.twig', [
+        return $this->renderForm('back/brand/edit.html.twig', [
             'brand' => $brand,
             'form' => $form,
         ]);
