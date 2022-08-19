@@ -88,10 +88,10 @@ class BrandController extends AbstractController
             $this->entityManager->persist($data);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_admin_product_index');
+            return $this->redirectToRoute('app_admin_brand_index');
         }
 
-        return $this->render('back/product/edit.html.twig', [
+        return $this->render('back/brand/edit.html.twig', [
             'form' => $form->createView(),
             'brand' => $brand,
         ]);
@@ -100,7 +100,7 @@ class BrandController extends AbstractController
     #[Route('/delete/{slug}', name: 'app_admin_brand_delete', methods: ['POST'])]
     public function delete(Request $request, Brand $brand, BrandRepository $brandRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$brand->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$brand->getSlug(), $request->request->get('_token'))) {
             $brandRepository->remove($brand, true);
         }
 

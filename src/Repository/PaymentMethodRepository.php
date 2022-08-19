@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\PaymentMethod;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,7 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method PaymentMethod[]    findAll()
  * @method PaymentMethod[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PaymentMethodRepository extends ServiceEntityRepository
+class PaymentMethodRepository extends AbstractBusinessCaseRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -39,28 +40,11 @@ class PaymentMethodRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return PaymentMethod[] Returns an array of PaymentMethod objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?PaymentMethod
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getQbAll(): QueryBuilder
+    {
+        $qb = parent::getQbAll();
+        return $qb->select('paymentmethod')
+            ->orderBy('paymentmethod.name', 'ASC');
+        ;
+    }
 }

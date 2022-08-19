@@ -1,26 +1,24 @@
-<!DOCTYPE html>
+{% extends 'back/base.html.twig' %}
 
-<title>PaymentMethod</title>
+{% block title %}
+    {{ payment_method.name }}
+{% endblock %}
 
 {% block body %}
-    <h1>PaymentMethod</h1>
+    <h1>{{ payment_method.name }}</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ payment_method.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ payment_method.name }}</td>
-            </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ payment_method.name }}</td>
+        </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_payment_method_index') }}">back to list</a>
+    <a href="{{ path('app_admin_payment_method_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('app_payment_method_edit', {'id': payment_method.id}) }}">edit</a>
+    <a href="{{ path('app_admin_payment_method_edit', {'slug': payment_method.slug}) }}">Modifier</a>
 
-    {{ include('payment_method/_delete_form.html.twig') }}
+    {{ include('back/payment_method/_delete_form.html.twig') }}
 {% endblock %}
