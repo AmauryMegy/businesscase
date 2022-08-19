@@ -39,7 +39,7 @@ class Photo
     private ?string $alternativeText = null;
 
     #[ORM\ManyToOne(inversedBy: 'photos')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Product $product = null;
 
     public function getId(): ?int

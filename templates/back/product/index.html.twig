@@ -8,7 +8,7 @@
     <h1 class="text-center">Les produits</h1>
 
     <div class="container-fluid">
-        {{ form_start(filters) }}
+{#        {{ form_start(filters) }}#}
         <table class="table table-hover table-striped mt-3">
             <thead>
                 <tr>
@@ -93,12 +93,10 @@
             {% endfor %}
             </tbody>
         </table>
-        {{ form_end(filters) }}
+{#        {{ form_end(filters) }}#}
 
         <div class="navigation d-flex justify-content-center mt-2">
             {{ knp_pagination_render(products) }}
         </div>
     </div>
-
-        <a href="{{ path('app_admin_product_new') }}">Create new</a>
 {% endblock %}

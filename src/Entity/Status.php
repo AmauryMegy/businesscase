@@ -21,6 +21,9 @@ class Status
     #[ORM\OneToMany(mappedBy: 'status', targetEntity: Cart::class)]
     private Collection $carts;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->carts = new ArrayCollection();
@@ -69,6 +72,18 @@ class Status
                 $cart->setStatus(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
