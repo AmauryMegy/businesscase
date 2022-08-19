@@ -10,10 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/payment/method')]
+#[Route('/admin/payment/method')]
 class PaymentMethodController extends AbstractController
 {
-    #[Route('/', name: 'app_payment_method_index', methods: ['GET'])]
+    #[Route('/', name: 'app_admin_payment_method_index', methods: ['GET'])]
     public function index(PaymentMethodRepository $paymentMethodRepository): Response
     {
         return $this->render('back/payment_method/index.html.twig', [
@@ -21,7 +21,7 @@ class PaymentMethodController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_payment_method_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_admin_payment_method_new', methods: ['GET', 'POST'])]
     public function new(Request $request, PaymentMethodRepository $paymentMethodRepository): Response
     {
         $paymentMethod = new PaymentMethod();
@@ -31,7 +31,7 @@ class PaymentMethodController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $paymentMethodRepository->add($paymentMethod, true);
 
-            return $this->redirectToRoute('app_payment_method_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_payment_method_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('back/payment_method/new.html.twig', [
@@ -40,15 +40,7 @@ class PaymentMethodController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_payment_method_show', methods: ['GET'])]
-    public function show(PaymentMethod $paymentMethod): Response
-    {
-        return $this->render('back/payment_method/show.html.twig', [
-            'payment_method' => $paymentMethod,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_payment_method_edit', methods: ['GET', 'POST'])]
+    #[Route('//edit{id}', name: 'app_admin_payment_method_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, PaymentMethod $paymentMethod, PaymentMethodRepository $paymentMethodRepository): Response
     {
         $form = $this->createForm(PaymentMethodType::class, $paymentMethod);
@@ -57,7 +49,7 @@ class PaymentMethodController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $paymentMethodRepository->add($paymentMethod, true);
 
-            return $this->redirectToRoute('app_payment_method_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_payment_method_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('back/payment_method/edit.html.twig', [
@@ -66,13 +58,21 @@ class PaymentMethodController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_payment_method_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_admin_payment_method_delete', methods: ['POST'])]
     public function delete(Request $request, PaymentMethod $paymentMethod, PaymentMethodRepository $paymentMethodRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$paymentMethod->getId(), $request->request->get('_token'))) {
             $paymentMethodRepository->remove($paymentMethod, true);
         }
 
-        return $this->redirectToRoute('app_payment_method_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin_payment_method_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}', name: 'app_admin_payment_method_show', methods: ['GET'])]
+    public function show(PaymentMethod $paymentMethod): Response
+    {
+        return $this->render('back/payment_method/show.html.twig', [
+            'payment_method' => $paymentMethod,
+        ]);
     }
 }

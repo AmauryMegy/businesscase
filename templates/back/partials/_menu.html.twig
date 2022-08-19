@@ -1,0 +1,115 @@
+
+<div class="ps-4 pt-4 admin-menu">
+
+    <h4>Comptes</h4>
+    <ul class="list-unstyled ps-4">
+        <li>
+            <a  href="{{ path('app_admin_user_index') }}"
+                class="{% if app.request.pathinfo == path('app_admin_user_index') %}menu-active{% endif %}"
+            >
+                Liste des comptes
+            </a>
+        </li>
+    </ul>
+    <hr>
+
+    <h4>Produits</h4>
+    <ul class="list-unstyled ps-4">
+        <li>
+            <a href="{{ path('app_admin_product_index') }}"
+               class="{% if app.request.pathinfo == path('app_admin_product_index') %}menu-active{% endif %}"
+            >
+                Liste des produits
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('app_admin_product_new') }}"
+               class="{% if app.request.pathinfo == path('app_admin_product_new') %}menu-active{% endif %}"
+            >
+                Ajouter un produit
+            </a>
+        </li>
+    </ul>
+    <hr>
+
+    <h4>Catégories</h4>
+    <ul class="list-unstyled ps-4">
+        <li>
+            <a  href="{{ path('app_admin_category_index') }}"
+                class="{% if app.request.pathinfo == path('app_admin_category_index') %}menu-active{% endif %}"
+            >
+                Liste des catégories
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('app_admin_category_new') }}"
+               class="{% if app.request.pathinfo == path('app_admin_category_new') %}menu-active{% endif %}"
+            >
+                Ajouter une catégorie
+            </a>
+        </li>
+    </ul>
+    <hr>
+
+    <h4>Marques</h4>
+    <ul class="list-unstyled ps-4">
+        <li>
+            <a href="{{ path('app_admin_brand_index') }}"
+               class="{% if app.request.pathinfo == path('app_admin_brand_index') %}menu-active{% endif %}"
+            >
+                Liste des catégories
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('app_admin_brand_new') }}"
+               class="{% if app.request.pathinfo == path('app_admin_brand_new') %}menu-active{% endif %}"
+            >
+                Ajouter une catégorie
+            </a>
+        </li>
+    </ul>
+    <hr>
+
+    <h4>Méthodes de paiements</h4>
+    <ul class="list-unstyled ps-4">
+        <li>
+            <a href="{{ path('app_admin_payment_method_index') }}"
+               class="{% if app.request.pathinfo == path('app_admin_payment_method_index') %}menu-active{% endif %}"
+            >
+                Liste des moyens de paiements
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('app_admin_payment_method_new') }}"
+               class="{% if app.request.pathinfo == path('app_admin_payment_method_new') %}menu-active{% endif %}"
+            >
+                Ajouter un moyen de paiement
+            </a>
+        </li>
+    </ul>
+    <hr>
+
+    <h4>Status de commande</h4>
+    <ul class="list-unstyled ps-4">
+        <li>
+            <a href="{{ path('app_admin_status_index') }}"
+               class="{% if app.request.pathinfo == path('app_admin_status_index') %}menu-active{% endif %}"
+            >
+                Liste des status de commande
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('app_admin_status_new') }}"
+               class="{% if app.request.pathinfo == path('app_admin_status_new') %}menu-active{% endif %}"
+            >
+                Ajouter un status de commande
+            </a>
+        </li>
+    </ul>
+    <hr>
+
+    <a href="{{ path('app_home') }}">
+        Retour au site
+    </a>
+
+</div>

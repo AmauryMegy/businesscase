@@ -3,9 +3,9 @@
 namespace App\Controller\Back;
 
 use App\Entity\Product;
+use App\Form\Filter\ProductFilterType;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
-
 use App\Service\TextService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -23,7 +23,7 @@ class ProductController extends AbstractController
         private EntityManagerInterface $entityManager
     ) { }
 
-    #[Route('/', name: 'app_product_index', methods: ['GET'])]
+    #[Route('/', name: 'app_admin_product_index', methods: ['GET'])]
     public function index(
         ProductRepository $productRepository,
         PaginatorInterface $paginator,
@@ -31,65 +31,87 @@ class ProductController extends AbstractController
         Request $request
     ): Response
     {
-//        $qb = $productRepository->getQbAll();
+        $qb = $productRepository->getQbAll();
+
+        $filterForm = $this->createForm(ProductFilterType::class, null, [
+            'method' => 'GET',
+        ]);
+
+        if ($request->query->has($filterForm->getName())) {
+            $filterForm->submit($request->query->get($filterForm->getName()));
+            $builderUpdater->addFilterConditions($filterForm, $qb);
+        }
+
+        $products = $paginator->paginate(
+            $qb,
+            $request->query->getInt('page', 1),
+            15
+        );
 
         return $this->render('back/product/index.html.twig', [
-            'products' => $productRepository->findAll(),
+            'products' => $products,
+            'filters' => $filterForm->createView(),
         ]);
     }
 
-    #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ProductRepository $productRepository): Response
+    #[Route('/new', name: 'app_admin_product_new', methods: ['GET', 'POST'])]
+    public function new(Request $request): Response
     {
-        $product = new Product();
+        $form = $this->createForm(ProductType::class, new Product());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Product $data */
+            $data = $form->getData();
+            $data->setSlug($this->textService->slugify($data->getName()));
+            $this->entityManager->persist($data);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_admin_product_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('back/product/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/edit/{slug}', name: 'app_admin_product_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Product $product): Response
+    {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $productRepository->add($product, true);
+            /** @var Product $data */
+            $data = $form->getData();
+            $data->setSlug($this->textService->slugify($data->getName()));
+            $this->entityManager->persist($data);
+            $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_product_index');
         }
 
-        return $this->renderForm('back/product/new.html.twig', [
+        return $this->render('back/product/edit.html.twig', [
+            'form' => $form->createView(),
             'product' => $product,
-            'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
+    #[Route('/delete/{slug}', name: 'app_admin_product_delete', methods: ['POST'])]
+    public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$product->getSlug(), $request->request->get('_token'))) {
+            $productRepository->remove($product, true);
+        }
+
+        return $this->redirectToRoute('app_admin_product_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{slug}', name: 'app_admin_product_show', methods: ['GET'])]
     public function show(Product $product): Response
     {
         return $this->render('back/product/show.html.twig', [
             'product' => $product,
         ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
-    {
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $productRepository->add($product, true);
-
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('back/product/edit.html.twig', [
-            'product' => $product,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
-    public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
-            $productRepository->remove($product, true);
-        }
-
-        return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
     }
 }

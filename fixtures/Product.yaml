@@ -1,6 +1,7 @@
 App\Entity\Product:
   Product{0..150}:
     name: '<word(1)>'
+    slug: ''
     price: '<randomNumber(1,1000)>'
     description: '<sentence(20,50)>'
     isOnline: '<boolean(80)>'

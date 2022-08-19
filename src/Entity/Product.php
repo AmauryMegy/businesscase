@@ -71,6 +71,9 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductInCart::class)]
     private Collection $productInCarts;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -241,6 +244,18 @@ class Product
                 $productInCart->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

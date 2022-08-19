@@ -5,39 +5,100 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Les produits</h1>
+    <h1 class="text-center">Les produits</h1>
 
-    <table class="table table-hover table-striped mt-3">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Description</th>
-                <th>IsOnline</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.price }}€</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.isOnline ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="container-fluid">
+        {{ form_start(filters) }}
+        <table class="table table-hover table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>
+                        {{
+                        knp_pagination_sortable(
+                            products,
+                            'Nom',
+                            'product.name'
+                        )|raw
+                        }}
+{#                        {{ form_widget(filters.name) }}#}
+                    </th>
+                    <th>
+                        {{
+                        knp_pagination_sortable(
+                            products,
+                            'Prix',
+                            'product.price'
+                        )|raw
+                        }}
+{#                        {{ form_widget(filters.price) }}#}
+                    </th>
+                    <th>
+                        {{
+                        knp_pagination_sortable(
+                            products,
+                            'Marque',
+                            'brand.name'
+                        )|raw
+                        }}
+{#                        {{ form_widget(filters.brand) }}#}
+                    </th>
+                    <th>
+                        {{
+                        knp_pagination_sortable(
+                            products,
+                            'Catégorie',
+                            'category.name'
+                        )|raw
+                        }}
+{#                        {{ form_widget(filters.category) }}#}
+                    </th>
+                    <th>
+                        {{
+                        knp_pagination_sortable(
+                            products,
+                            'En ligne',
+                            'product.isOnline'
+                        )|raw
+                        }}
+                    </th>
+                    <th>
+                        <div>
+{#                            <button type="submit" class="filter-action">#}
+{#                                <i class="fas fa-filter"></i>#}
+{#                            </button>#}
+                            <a class="filter-action" href="{{ path('app_admin_product_index') }}">
+                                <i class="fas fa-times"></i>
+                            </a>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td><a href="{{ path('app_admin_product_show', {'slug': product.slug}) }}">{{ product.name }}</a></td>
+                    <td>{{ product.price }}€</td>
+                    <td>{{ product.brand.name }}</td>
+                    <td>{{ product.category.name }}</td>
+                    <td>{{ product.isOnline ? 'Oui' : 'Non' }}</td>
+                    <td>
+                        <a class="me-2" href="{{ path('app_admin_product_edit', {'slug': product.slug}) }}"><i class="fa-solid fa-pen"></i></a>
+                        <a href="{{ path('app_admin_product_delete', {'slug': product.slug}) }}"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Aucun produit trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {{ form_end(filters) }}
 
-    <a href="{{ path('app_product_new') }}">Create new</a>
+        <div class="navigation d-flex justify-content-center mt-2">
+            {{ knp_pagination_render(products) }}
+        </div>
+    </div>
+
+        <a href="{{ path('app_admin_product_new') }}">Create new</a>
 {% endblock %}
