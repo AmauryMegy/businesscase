@@ -24,6 +24,9 @@ class Status
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[ORM\Column(length: 3)]
+    private ?string $code = null;
+
     public function __construct()
     {
         $this->carts = new ArrayCollection();
@@ -84,6 +87,18 @@ class Status
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
 
         return $this;
     }

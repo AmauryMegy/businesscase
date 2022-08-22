@@ -1,26 +1,28 @@
-<!DOCTYPE html>
+{% extends 'back/base.html.twig' %}
 
-<title>Status</title>
+{% block title %}
+    {{ status.name }}
+{% endblock %}
 
 {% block body %}
-    <h1>Status</h1>
+    <h1>{{ status.name }}</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ status.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ status.name }}</td>
-            </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ status.name }}</td>
+        </tr>
+        <tr>
+            <th>Prix</th>
+            <td>{{ status.code }}</td>
+        </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_status_index') }}">back to list</a>
+    <a href="{{ path('app_admin_status_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('app_status_edit', {'id': status.id}) }}">edit</a>
+    <a href="{{ path('app_admin_status_edit', {'slug': status.slug}) }}">Modifier</a>
 
-    {{ include('status/_delete_form.html.twig') }}
+    {{ include('back/status/_delete_form.html.twig') }}
 {% endblock %}

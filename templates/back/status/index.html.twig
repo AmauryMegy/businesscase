@@ -1,35 +1,70 @@
-<!DOCTYPE html>
+{% extends 'back/base.html.twig' %}
 
-<title>Status index</title>
+{% block title %}
+    Les status
+{% endblock %}
 
 {% block body %}
-    <h1>Status index</h1>
+    <h1 class="text-center">Les status</h1>
 
-    <table class="table">
-        <thead>
+    <div class="container-fluid">
+{#                {{ form_start(filters) }}#}
+        <table class="table table-hover table-striped mt-3">
+            <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th>
+                    {{
+                    knp_pagination_sortable(
+                        status,
+                        'Nom',
+                        'status.name'
+                    )|raw
+                    }}
+{#                    {{ form_widget(filters.name) }}#}
+                </th>
+                <th>
+                    {{
+                    knp_pagination_sortable(
+                        status,
+                        'Code',
+                        'status.code'
+                    )|raw
+                    }}
+{#                    {{ form_widget(filters.code) }}#}
+                </th>
+                <th>
+                    <div>
+{#                        <button type="submit" class="filter-action">#}
+{#                            <i class="fas fa-filter"></i>#}
+{#                        </button>#}
+                        <a class="filter-action" href="{{ path('app_admin_status_index') }}">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </div>
+                </th>
             </tr>
-        </thead>
-        <tbody>
-        {% for status in statuses %}
-            <tr>
-                <td>{{ status.id }}</td>
-                <td>{{ status.name }}</td>
-                <td>
-                    <a href="{{ path('app_status_show', {'id': status.id}) }}">show</a>
-                    <a href="{{ path('app_status_edit', {'id': status.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for status in status %}
+                <tr>
+                    <td><a href="{{ path('app_admin_status_show', {'slug': status.slug}) }}">{{ status.name }}</a></td>
+                    <td>{{ status.code }}</td>
+                    <td>
+                        <a class="me-2" href="{{ path('app_admin_status_edit', {'slug': status.slug}) }}"><i class="fa-solid fa-pen"></i></a>
+                        <a href="{{ path('app_admin_status_delete', {'slug': status.slug}) }}"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Aucun status trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{#                {{ form_end(filters) }}#}
 
-    <a href="{{ path('app_status_new') }}">Create new</a>
+        <div class="navigation d-flex justify-content-center mt-2">
+            {{ knp_pagination_render(status) }}
+        </div>
+    </div>
 {% endblock %}

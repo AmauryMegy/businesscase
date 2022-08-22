@@ -1,11 +1,20 @@
-<!DOCTYPE html>
+{% extends 'back/base.html.twig' %}
 
-<title>New Status</title>
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}
+    Nouveau status de commande
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Status</h1>
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between mt-4 mb-2">
+            <h1>Créer un nouveau status</h1>
+            <a class="btn btn-primary my-2" href="{{ path('app_admin_status_index') }}">Retour à la liste</a>
+        </div>
 
-    {{ include('status/_form.html.twig') }}
-
-    <a href="{{ path('app_status_index') }}">back to list</a>
+        <div class="mt-3">
+            {{ include('back/status/_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}
