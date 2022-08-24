@@ -16,9 +16,6 @@ class Department
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $slug = null;
-
     #[ORM\Column(length: 3)]
     private ?string $code = null;
 
@@ -42,13 +39,6 @@ class Department
     public function getSlug(): ?string
     {
         return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
     }
 
     public function getCode(): ?string

@@ -45,9 +45,7 @@ class Product
     )]
     #[Assert\Length(
         min: 3,
-        max: 255,
         minMessage: "La description du produit doit faire au moins {{ limit }} caractères",
-        maxMessage: "La description du produit doit faire au maximum {{ limit }} caractères"
     )]
     private ?string $description = null;
 
