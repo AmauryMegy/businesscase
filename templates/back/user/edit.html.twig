@@ -1,13 +1,22 @@
-<!DOCTYPE html>
 
-<title>Edit User</title>
+{% extends 'back/base.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}
+    Modifier un utilisateur
+{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between mt-4 mb-2">
+            <h1>Modifier l'utilisateur : {{ user.username }}</h1>
+            <a class="btn btn-primary my-2" href="{{ path('app_admin_user_index') }}">Retour à la liste</a>
+        </div>
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_user_index') }}">back to list</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+        <div class="mt-3">
+            {{ include('back/user/_form.html.twig') }}
+            {{ include('back/user/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

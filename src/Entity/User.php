@@ -46,8 +46,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         maxMessage: "Le mot de passe doit faire au maximum {{ limit }} caractères"
     )]
     #[Assert\Regex(
-        pattern: "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,20}$/",
-        message: "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial"
+        pattern: "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{5,20}$/",
+        message: "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre"
     )]
     private ?string $password = null;
 
@@ -91,7 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         maxMessage: "Le nom doit faire au maximum {{ limit }} caractères"
     )]
     #[Assert\Regex(
-        pattern: "/^[a-zA-ZÀ-ÿ0-9' -]+$/",
+        pattern: "/^[a-zA-ZÀ-ÿ0-9' .-]+$/",
         message: "Le nom doit contenir que des caractères alphanumériques"
     )]
     private ?string $username = null;
@@ -101,7 +101,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         message: "Le numéro de téléphone est obligatoire"
     )]
     #[Assert\Regex(
-        pattern: "/^\[0][1-9][0-9]{8}$/",
+        pattern: "/^[0][1-9]\d{8}$/",
         message: "Le numéro de téléphone ne peut contenir que 10 chiffres et doit commencer par un 0 suivi d'un numéro entre 1 et 9"
     )]
     private ?string $phoneNumber = null;

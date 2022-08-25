@@ -1,51 +1,81 @@
-<!DOCTYPE html>
+{% extends 'back/base.html.twig' %}
 
-<title>User index</title>
+{% block title %}
+    Les utilisateurs
+{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1 class="text-center">Les utilisateurs</h1>
 
-    <table class="table">
-        <thead>
+    <div class="container-fluid">
+        {#        {{ form_start(filters) }}#}
+        <table class="table table-hover table-striped mt-3">
+            <thead>
             <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>Username</th>
-                <th>PhoneNumber</th>
-                <th>BirthAt</th>
-                <th>RegisteredAt</th>
-                <th>actions</th>
+                <th>
+                    {{
+                    knp_pagination_sortable(
+                        users,
+                        'Username',
+                        'user.username'
+                    )|raw
+                    }}
+                    {#                        {{ form_widget(filters.name) }}#}
+                </th>
+                <th>
+                    {{
+                    knp_pagination_sortable(
+                        users,
+                        'Né le',
+                        'user.birthAt'
+                    )|raw
+                    }}
+                    {#                        {{ form_widget(filters.price) }}#}
+                </th>
+                <th>
+                    {{
+                    knp_pagination_sortable(
+                        users,
+                        'Inscrit le',
+                        'user.registeredAt'
+                    )|raw
+                    }}
+                    {#                        {{ form_widget(filters.brand) }}#}
+                </th>
+                <th>
+                    <div>
+                        {#                            <button type="submit" class="filter-action">#}
+                        {#                                <i class="fas fa-filter"></i>#}
+                        {#                            </button>#}
+                        <a class="filter-action" href="{{ path('app_admin_user_index') }}">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </div>
+                </th>
             </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.phoneNumber }}</td>
-                <td>{{ user.birthAt ? user.birthAt|date('Y-m-d') : '' }}</td>
-                <td>{{ user.registeredAt ? user.registeredAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td><a href="{{ path('app_admin_user_show', {'slug': user.slug}) }}">{{ user.username }}</a></td>
+                    <td>{{ user.birthAt | date('d/m/Y') }}</td>
+                    <td>{{ user.registeredAt | date('d/m/Y') }}</td>
+                    <td>
+                        <a class="me-2" href="{{ path('app_admin_user_edit', {'slug': user.slug}) }}"><i class="fa-solid fa-pen"></i></a>
+                        <a href="{{ path('app_admin_user_delete', {'slug': user.slug}) }}"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Aucun utilisateur trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {#        {{ form_end(filters) }}#}
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+        <div class="navigation d-flex justify-content-center mt-2">
+            {{ knp_pagination_render(users) }}
+        </div>
+    </div>
 {% endblock %}

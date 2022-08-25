@@ -1,58 +1,36 @@
-<!DOCTYPE html>
+{% extends 'back/base.html.twig' %}
 
-<title>User</title>
+{% block title %}
+    {{ user.username }}
+{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <h1>{{ user.username }}</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>FirstName</th>
-                <td>{{ user.firstName }}</td>
-            </tr>
-            <tr>
-                <th>LastName</th>
-                <td>{{ user.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>PhoneNumber</th>
-                <td>{{ user.phoneNumber }}</td>
-            </tr>
-            <tr>
-                <th>BirthAt</th>
-                <td>{{ user.birthAt ? user.birthAt|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>RegisteredAt</th>
-                <td>{{ user.registeredAt ? user.registeredAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th>Prénom</th>
+            <td>{{ user.firstName }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ user.lastName }}</td>
+        </tr>
+        <tr>
+            <th>Date de naissance</th>
+            <td>{{ user.birthAt | date('d/m/Y') }}</td>
+        </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+    <a href="{{ path('app_admin_user_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+    <a href="{{ path('app_admin_user_edit', {'slug': user.slug}) }}">Modifier</a>
 
-    {{ include('user/_delete_form.html.twig') }}
+    {{ include('back/user/_delete_form.html.twig') }}
 {% endblock %}

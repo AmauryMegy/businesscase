@@ -10,6 +10,13 @@
                 Liste des comptes
             </a>
         </li>
+        <li>
+            <a href="{{ path('app_admin_user_new') }}"
+               class="{% if app.request.pathinfo == path('app_admin_user_new') %}menu-active{% endif %}"
+            >
+                Ajouter un utilisateur
+            </a>
+        </li>
     </ul>
     <hr>
 

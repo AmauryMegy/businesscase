@@ -11,8 +11,10 @@ security:
                 property: username
 
     role_hierarchy:
+        ROLE_USER: ROLE_USER
         ROLE_STATS: ROLE_USER
         ROLE_ADMIN: ROLE_STATS
+        ROLE_BANNED: ROLE_USER
 
     firewalls:
         dev:
