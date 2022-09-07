@@ -26,6 +26,15 @@
                     {{
                     knp_pagination_sortable(
                         users,
+                        'Role',
+                        'user.roles'
+                    )|raw
+                    }}
+                    {#                        {{ form_widget(filters.price) }}#}
+                </th><th>
+                    {{
+                    knp_pagination_sortable(
+                        users,
                         'Né le',
                         'user.birthAt'
                     )|raw
@@ -58,6 +67,7 @@
             {% for user in users %}
                 <tr>
                     <td><a href="{{ path('app_admin_user_show', {'slug': user.slug}) }}">{{ user.username }}</a></td>
+                    <td>{{ user.roles }}</td>
                     <td>{{ user.birthAt | date('d/m/Y') }}</td>
                     <td>{{ user.registeredAt | date('d/m/Y') }}</td>
                     <td>

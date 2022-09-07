@@ -14,7 +14,7 @@ security:
         ROLE_USER: ROLE_USER
         ROLE_STATS: ROLE_USER
         ROLE_ADMIN: ROLE_STATS
-        ROLE_BANNED: ROLE_USER
+        ROLE_BANNED: ROLE_BANNED
 
     firewalls:
         dev:

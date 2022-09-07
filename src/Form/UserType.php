@@ -28,6 +28,11 @@ class UserType extends AbstractType
             ])
             ->add('roles', CollectionType::class, [
                 'label' => 'Roles',
+                'attr' => [
+                    'data-list-selector' => 'countries'
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
                 'required' => false,
                 'entry_type' => ChoiceType::class,
                 'entry_options' => [
