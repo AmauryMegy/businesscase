@@ -13,20 +13,20 @@
         {% endblock %}
     </head>
     <body>
-    <header>
-        {% block header %}
-            {% include 'front/partials/_navbar.html.twig' %}
-        {% endblock %}
-    </header>
+        <header>
+            {% block header %}
+                {% include 'front/partials/_navbar.html.twig' %}
+            {% endblock %}
+        </header>
 
-    {% block body %}
-
-    {% endblock %}
-
-    <footer>
-        {% block footer %}
+        {% block body %}
 
         {% endblock %}
-    </footer>
+
+        <footer>
+            {% block footer %}
+
+            {% endblock %}
+        </footer>
     </body>
 </html>
