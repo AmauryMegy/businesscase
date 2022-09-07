@@ -67,7 +67,9 @@
             {% for user in users %}
                 <tr>
                     <td><a href="{{ path('app_admin_user_show', {'slug': user.slug}) }}">{{ user.username }}</a></td>
-                    <td>{{ user.roles }}</td>
+                    <td>{% for role in user.roles %}
+                        {{ role }}
+                    {% endfor %}</td>
                     <td>{{ user.birthAt | date('d/m/Y') }}</td>
                     <td>{{ user.registeredAt | date('d/m/Y') }}</td>
                     <td>

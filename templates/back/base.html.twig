@@ -13,14 +13,26 @@
         {% endblock %}
     </head>
     <body>
-    <div class="row">
-        <div class="col-2">
-            {% include 'back/partials/_menu.html.twig' %}
-        </div>
-        <div class="col-10">
-            {% block body %}
+        <header>
+            {% block header %}
+                {% include 'shared/partials/_navbar.html.twig' %}
             {% endblock %}
+        </header>
+
+        <div class="row">
+            <div class="col-2">
+                {% include 'back/partials/_menu.html.twig' %}
+            </div>
+            <div class="col-10">
+                {% block body %}
+                {% endblock %}
+            </div>
         </div>
-    </div>
+
+        <footer>
+            {% block footer %}
+
+            {% endblock %}
+        </footer>
     </body>
 </html>

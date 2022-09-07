@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use App\Enumeration\RoleList;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -29,7 +30,7 @@ class UserType extends AbstractType
             ->add('roles', CollectionType::class, [
                 'label' => 'Roles',
                 'attr' => [
-                    'data-list-selector' => 'countries'
+                    'data-list-selector' => 'roles'
                 ],
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -38,11 +39,18 @@ class UserType extends AbstractType
                 'entry_options' => [
                     'label' => false,
                     'choices' => [
-                        'User' => 'ROLE_USER',
+                        '' => 'ROLE_USER',
                         'Banned' => 'ROLE_BANNED',
                         'Stats' => 'ROLE_STATS',
                         'Admin' => 'ROLE_ADMIN',
                     ]
+                ]
+            ])
+            ->add('addRole', ButtonType::class, [
+                'label' => 'Ajouter un role',
+                'attr' => [
+                    'class' => 'btn btn-primary',
+                    'data-btn-selector' => 'roles',
                 ]
             ])
             ->add('password', PasswordType::class, [
