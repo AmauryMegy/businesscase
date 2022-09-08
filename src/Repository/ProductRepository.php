@@ -49,4 +49,17 @@ class ProductRepository extends AbstractBusinessCaseRepository
             ->orderBy('product.isOnline', 'DESC')
         ;
     }
+
+    public function getBestSeller()
+    {
+        $qb = $this->createQueryBuilder('product')
+            ->join('product.productInCarts', 'productInCarts')
+            ->groupBy('product')
+            ->orderBy('COUNT(productInCarts.product)', 'DESC')
+            ->setMaxResults(6);
+
+            return $qb->getQuery()
+                ->getResult()
+            ;
+    }
 }

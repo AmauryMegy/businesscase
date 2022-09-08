@@ -3,13 +3,11 @@
 namespace App\Form;
 
 use App\Entity\User;
-use App\Enumeration\RoleList;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -39,7 +37,7 @@ class UserType extends AbstractType
                 'entry_options' => [
                     'label' => false,
                     'choices' => [
-                        '' => 'ROLE_USER',
+                        '' => '',
                         'Banned' => 'ROLE_BANNED',
                         'Stats' => 'ROLE_STATS',
                         'Admin' => 'ROLE_ADMIN',

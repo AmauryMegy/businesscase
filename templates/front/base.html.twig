@@ -16,6 +16,8 @@
         <header>
             {% block header %}
                 {% include 'shared/partials/_navbar.html.twig' %}
+                {% include 'front/partials/_categoryBar.html.twig' %}
+                {% include 'front/partials/_securityBar.html.twig' %}
             {% endblock %}
         </header>
 
@@ -25,7 +27,7 @@
 
         <footer>
             {% block footer %}
-
+                {% include 'front/partials/_footer.html.twig' %}
             {% endblock %}
         </footer>
     </body>

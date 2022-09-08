@@ -1,0 +1,17 @@
+<div class="card-product">
+    <h3>{{ bestSeller.brand.name }}</h3>
+    <h3>{{ bestSeller.name }}</h3>
+    <div class="d-flex card-main">
+        <div class="card-image">
+            <img src="{{ asset('build/images/logo.webp') }}" alt="Photo du produit">
+        </div>
+        <div class="card-info">
+            <p>Notation</p>
+            <p>{{ bestSeller.price }} €</p>
+            <button class="btn btn-danger"><img src="{{ asset('build/images/cartMore.svg') }}" alt="Ajouter au panier">Ajouter</button>
+            <div>
+                <img src="{{ asset('build/images/emptyHeart.svg') }}" alt="Ajouter aux favoris">
+            </div>
+        </div>
+    </div>
+</div>

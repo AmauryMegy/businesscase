@@ -1,0 +1,12 @@
+.categoryBar {
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+
+  ul {
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+  }
+}
