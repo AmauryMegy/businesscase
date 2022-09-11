@@ -18,10 +18,10 @@
             <h1 class="h3 mb-3 font-weight-normal">Saisissez vos identifiants</h1>
             <label class="d-none" for="inputUsername">Email / Pseudo</label>
             <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" placeholder="Email / Pseudo" required autofocus>
-            <p><u>Email perdu ?</u></p>
+            <a href="#">Email perdu ?</a>
             <label class="d-none" for="inputPassword">Mot de passe</label>
             <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Mot de passe" required>
-            <p><u>Mot de passe perdu ?</u></p>
+            <a href="#">Mot de passe perdu ?</a>
 
 
             <input type="hidden" name="_csrf_token"
@@ -40,7 +40,7 @@
                     </label>
                 </div>
 
-            <p><u>Pas encore de compte ?</u></p>
+            <a href="{{ path('app_home') }}">Pas encore de compte ?</a>
 
         </form>
     </div>

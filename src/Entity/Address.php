@@ -16,12 +16,35 @@ class Address
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Regex(
-        pattern: "/^[a-zA-Z_.-]$/",
-        message: "Le nom du destinataire doit être uniquement composé de caractères alphabétiques"
-    )]
-    private ?string $fullName = null;
+    #[ORM\Column(length: 255)]
+    #[
+        Assert\Regex(
+            pattern: "/^[a-zA-Z_.-]$/",
+            message: "Le nom du destinataire doit être uniquement composé de caractères alphabétiques"
+        ),
+        Assert\Length([
+            'min' => 3,
+            'max' => 30,
+            'minMessage' => 'Le prénom doit comporté au minimum 3 lettres',
+            'maxMessage' => 'Le prénom doit comporter au maximum 30 lettres',
+        ]),
+    ]
+    private ?string $firstName = null;
+
+    #[ORM\Column(length: 255)]
+    #[
+        Assert\Regex(
+            pattern: "/^[a-zA-Z_.-]$/",
+            message: "Le nom du destinataire doit être uniquement composé de caractères alphabétiques"
+        ),
+        Assert\Length([
+            'min' => 3,
+            'max' => 30,
+            'minMessage' => 'Le nom doit comporter au minimum {{ limit }} lettres',
+            'maxMessage' => 'Le nom doit comporter au maximum {{ limit }} lettres',
+        ]),
+    ]
+    private ?string $lastName = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(
@@ -64,14 +87,26 @@ class Address
         return $this->id;
     }
 
-    public function getFullName(): ?string
+    public function getfirstName(): ?string
     {
-        return $this->fullName;
+        return $this->firstName;
     }
 
-    public function setFullName(string $fullName): self
+    public function setFirstName(string $firstName): self
     {
-        $this->fullName = $fullName;
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }

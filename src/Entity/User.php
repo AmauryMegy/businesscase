@@ -52,25 +52,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(
-        message: "Le prénom est obligatoire"
-    )]
-    #[Assert\Length(
-        min: 2,
-        max: 30,
-        minMessage: "Le prénom doit faire au moins {{ limit }} caractères",
-        maxMessage: "Le prénom doit faire au maximum {{ limit }} caractères"
-    )]
-    #[Assert\Regex(
-        pattern: "/^[a-zA-ZÀ-ÿ' -]+$/",
-        message: "Le prénom doit contenir que des lettres"
-    )]
-    private ?string $firstName = null;
-
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(
-        message: "Le nom est obligatoire"
-    )]
     #[Assert\Length(
         min: 2,
         max: 30,
@@ -78,33 +59,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         maxMessage: "Le nom doit faire au maximum {{ limit }} caractères"
     )]
     #[Assert\Regex(
-        pattern: "/^[a-zA-ZÀ-ÿ' -]+$/",
-        message: "Le nom doit contenir que des lettres"
-    )]
-    private ?string $lastName = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Length(
-        min: 2,
-        max: 30,
-        minMessage: "Le nom doit faire au moins {{ limit }} caractères",
-        maxMessage: "Le nom doit faire au maximum {{ limit }} caractères"
-    )]
-    #[Assert\Regex(
-        pattern: "/^[a-zA-ZÀ-ÿ0-9' .-]+$/",
-        message: "Le nom doit contenir que des caractères alphanumériques"
+        pattern: "/^[a-zA-Z0-9' .-]+$/",
+        message: "Le pseudo ne doit contenir que des lettres et des chiffres"
     )]
     private ?string $username = null;
-
-    #[ORM\Column(length: 10)]
-    #[Assert\NotBlank(
-        message: "Le numéro de téléphone est obligatoire"
-    )]
-    #[Assert\Regex(
-        pattern: "/^[0][1-9]\d{8}$/",
-        message: "Le numéro de téléphone ne peut contenir que 10 chiffres et doit commencer par un 0 suivi d'un numéro entre 1 et 9"
-    )]
-    private ?string $phoneNumber = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $birthAt = null;
@@ -201,30 +159,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): self
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
     public function getUsername(): ?string
     {
         return $this->username;
@@ -233,18 +167,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(?string $username): self
     {
         $this->username = $username;
-
-        return $this;
-    }
-
-    public function getPhoneNumber(): ?string
-    {
-        return $this->phoneNumber;
-    }
-
-    public function setPhoneNumber(string $phoneNumber): self
-    {
-        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
