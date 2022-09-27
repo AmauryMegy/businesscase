@@ -70,7 +70,6 @@ class UserController extends AbstractController
                 $data->getPassword()
             );
             $data->setPassword($hashedPassword);
-            $data->setUsername($data->getFirstName().'.'.$data->getLastName());
             $data->setSlug($this->textService->slugify($data->getUsername()));
             $this->entityManager->persist($data);
             $this->entityManager->flush();
@@ -97,11 +96,6 @@ class UserController extends AbstractController
                 $data->getPassword()
             );
             $data->setPassword($hashedPassword);
-            if($data->getUsername()) {
-                $data->setUsername($data->getUsername());
-            } else {
-                $data->setUsername($data->getFirstName().'.'.$data->getLastName());
-            }
             $data->setSlug($this->textService->slugify($data->getUsername()));
             $this->entityManager->persist($data);
             $this->entityManager->flush();

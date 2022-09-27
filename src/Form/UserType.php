@@ -57,30 +57,11 @@ class UserType extends AbstractType
                     'placeholder' =>'Mot de passe'
                 ]
             ] )
-            ->add('firstName', TextType::class, [
-                'label' => 'Prénom',
-                'attr' => [
-                    'placeholder' =>'Prénom'
-                ]
-            ])
-            ->add('lastName', TextType::class, [
-                'label' => 'Nom',
-                'attr' => [
-                    'placeholder' =>'Nom'
-                ]
-            ])
             ->add('username', TextType::class, [
                 'label' => 'Pseudo',
                 'required' => false,
                 'attr' => [
                     'placeholder' =>'Pseudo'
-                ]
-            ])
-            ->add('phoneNumber', TextType::class, [
-                'label' => 'Numéro de téléphone',
-                'required' => false,
-                'attr' => [
-                    'placeholder' => 'Numéro de téléphone'
                 ]
             ])
             ->add('birthAt', DateType::class, [

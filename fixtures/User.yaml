@@ -5,8 +5,6 @@ App\Entity\User:
   user (template):
     email (unique): '<email()>'
     password: '<{password}>'
-    firstName: '<firstName()>'
-    lastName: '<lastName()>'
     phoneNumber: '0123456789'
     birthAt: '<dateTimeBetween("-29200 days", "-6570 days")>'
     registeredAt: '<dateTimeBetween("-1500 days", "now")>'
